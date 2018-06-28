@@ -62,7 +62,7 @@
 
     decrement.addEventListener('click', function () {
         actionToServiceWorker('DECREMENT');
-        messageServiceWorker({ IS_ACTION: true, ACTION: 'DECREMENT'})''
+        messageServiceWorker({ IS_ACTION: true, ACTION: 'DECREMENT'});
     });
 
     incrementAsync.addEventListener('click', function () {

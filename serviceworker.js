@@ -24,29 +24,28 @@ function counter(state, action) {
 const store = Redux.createStore(counter)
 
 self.onmessage = function(message) {
-
+	console.log("Message sent from tab", message.source.id, "with payload", message)
 	if (message.data.GET_STATE) {
 		syncTabState();
 	} else if (message.data.TAB_KILLED) {
 		checkIfAllTabsKilled()
 	} else if (message.data.ACTION) {
-		dispatchToStore(message.data.ACTION )
+		dispatchToStore(message.data.ACTION)
 	}
 
 }
 
 // Dispatch a store event and sync that back to the tabs
-function dispatchToStore(action) {
-	console.log("Dispatching Redux event - ", action)
+function dispatchToStore(action, clientId) {
+	console.log("Dispatching Redux event - ", action);
 	store.dispatch({ type: action });
-	const id = message.source.id
-	syncTabState(id);
+	syncTabState();
 }
 
 // Check if all the tabs have died and if so reset the state
 function checkIfAllTabsKilled() {
 	console.log("Tab was killed");
-	clients.matchAll().then(function(clients) {
+	clients.matchAll().then((clients) => {
 		if (clients.length === 0) {
 			store.dispatch({ type: RESET });
 		}
@@ -55,14 +54,14 @@ function checkIfAllTabsKilled() {
 
 // Sync the state back to all the available tabs and windows
 function syncTabState() {
-	clients.matchAll().then(function(clients) {
+	clients.matchAll().then((clients) => {
 		// Loop over all available clients
-		clients.forEach(function(client) {
+		clients.forEach((client) => {
 			const data = { state: store.getState().toString() }
 			console.log("Sending out new state", data);
 			client.postMessage(data);
 
 		});
 
-	})
+	});
 }
