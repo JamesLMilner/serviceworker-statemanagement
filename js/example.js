@@ -9,7 +9,7 @@
                 // Here we add the event listener for receiving messages
                 navigator.serviceWorker.addEventListener('message', function(event){
                     console.log("Main message - ", event);
-                    render(event.data.state);
+                    render(event.data.state.count);
                 });
 
                 messageServiceWorker({ GET_STATE: true});
