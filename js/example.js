@@ -46,7 +46,7 @@
     var increment = document.getElementById('increment');
     var decrement = document.getElementById('decrement');
     var incrementIfOdd = document.getElementById('incrementIfOdd');
-    var incrementAsync = document.getElementById('incrementAsync');
+    var reset = document.getElementById('reset');
     var value = document.getElementById("value");
 
     function render(newValue) {
@@ -65,8 +65,8 @@
         messageServiceWorker({ IS_ACTION: true, ACTION: 'DECREMENT'});
     });
 
-    incrementAsync.addEventListener('click', function () {
+    reset.addEventListener('click', function () {
         setTimeout(function () {
-            actionToServiceWorker('INCREMENT');
+            actionToServiceWorker('RESET');
         }, 1000)
     });
