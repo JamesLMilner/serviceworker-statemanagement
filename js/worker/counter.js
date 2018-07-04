@@ -6,8 +6,6 @@ const actions = {
 
 const reducer = function(state, action) {
 
-    console.log("reducer", state, action);
-
     if (typeof state === 'undefined') {
         return { count : 0 };
     }
@@ -24,4 +22,4 @@ const reducer = function(state, action) {
     }
 }
 
-const store = new StateManager("counter", { count: 0 }, reducer);
+const store = new IDBStateManager("counter", { count: 0 }, reducer);

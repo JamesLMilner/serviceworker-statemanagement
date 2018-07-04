@@ -18,6 +18,12 @@
                 console.error('Service Worker registration error : ', error);
             });
 
+
+        navigator.serviceWorker.oncontrollerchange = function() {
+            console.log("oncontrollerchange");
+            messageServiceWorker({ GET_STATE: true});
+        }
+
         // We fire an event on a tab/window dying
         // We can then check for killing all tabs/window
         if (RESET_ON_NO_CLIENTS) {
@@ -50,6 +56,9 @@
     var value = document.getElementById("value");
 
     function render(newValue) {
+        // TODO: Kind of silly but it'll do for a demo!
+        document.getElementById("counter").style.display = "initial";
+        document.getElementById("loading").style.display = "none";
         value.innerHTML = newValue;
     }
 
@@ -66,7 +75,5 @@
     });
 
     reset.addEventListener('click', function () {
-        setTimeout(function () {
-            actionToServiceWorker('RESET');
-        }, 1000)
+        actionToServiceWorker('RESET');
     });
